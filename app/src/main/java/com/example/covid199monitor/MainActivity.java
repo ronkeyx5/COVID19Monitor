@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.channels.AsynchronousFileChannel;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -50,6 +52,30 @@ public class MainActivity extends AppCompatActivity {
                 Scan();
             }
         });
+
+        Button button_casos = findViewById(R.id.button_casos);
+        button_casos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewPieChartC("1");
+            }
+        });
+
+        Button button_fallecimientos = findViewById(R.id.button_fallecimientos);
+        button_fallecimientos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewPieChartC("2");
+            }
+        });
+    }
+
+    private void ViewPieChartC(String q) {
+        Intent i = new Intent(this, PieChart.class);
+        i.putExtra("type", q);
+        i.putExtra("estados", (Serializable)estados);
+
+        startActivity(i);
     }
 
     public void Scan() {

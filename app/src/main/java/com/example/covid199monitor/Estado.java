@@ -1,6 +1,8 @@
 package com.example.covid199monitor;
 
-public class Estado {
+import java.io.Serializable;
+
+public class Estado implements Serializable {
     private String nombre;
     private int casos;
     private int casos_positivos;
