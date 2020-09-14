@@ -30,6 +30,16 @@ public class Paciente {
 
     private boolean resultado;
 
+    public boolean isDefuncion() {
+        return defuncion;
+    }
+
+    public void setDefuncion(boolean defuncion) {
+        this.defuncion = defuncion;
+    }
+
+    private boolean defuncion;
+
     private boolean cuidados_intensivos;
 
     public String getId() {

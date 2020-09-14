@@ -30,8 +30,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.zip.GZIPOutputStream;
 
 import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,10 +60,21 @@ public class MainActivity extends AppCompatActivity {
         read.execute();
     }
 
+    //Analiza los datos de la pantalla principal
+    private void TopData() {
+
+    }
+
     //------------------------------------------------------
 
     //Aqui se guarda toda la informacion de la base de datos
     public List<Paciente> pacientes = new ArrayList<>();
+    //Variables globales
+    private String fecha = "";
+    int x = 0;
+    int casos_positivos = 0;
+    int fallecimientos = 0;
+    public List<Estado> estados = new ArrayList<>();
 
     /*
     Reemplazado por Async
@@ -159,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
     */
 
     class DataReadAsync extends AsyncTask {
-        int x = 0;
 
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -171,10 +184,46 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             Toast.makeText(MainActivity.this, "Se escanearon " + Integer.toString(x) + " registros con exito", Toast.LENGTH_LONG).show();
-            findViewById(R.id.loading).setVisibility(View.INVISIBLE);
-            findViewById(R.id.explorar).setEnabled(true);
+            findViewById(R.id.loading).setVisibility(View.GONE);
+            findViewById(R.id.escaner).setVisibility(View.GONE);
+            findViewById(R.id.searchZone).setVisibility(View.VISIBLE);
+            findViewById(R.id.info).setVisibility(View.GONE);
+            findViewById(R.id.contentDisplay).setVisibility(View.VISIBLE);
+
+            //Mostrar info dentro del view
+            TextView fechaT = findViewById(R.id.fecha);
+            fechaT.setText(fecha);
+
+            TextView casosT = findViewById(R.id.casos);
+            casosT.setText(Integer.toString(casos_positivos));
+
+            TextView fallecimientosT = findViewById(R.id.fallecimientos);
+            fallecimientosT.setText(Integer.toString(fallecimientos));
+
+            TextView estadoT = findViewById(R.id.estado);
+            estadoT.setText(EstadoMayorCasos());
+
+            int i=0;
+            while(i < estados.size()){
+                Log.d("control", estados.get(i).getNombre() + ", " + estados.get(i).getCasos() + ", f " + estados.get(i).getFallecimientos());
+                i++;
+            }
 
             super.onPostExecute(o);
+        }
+
+        private String EstadoMayorCasos() {
+            int i=0, w=0;
+
+            while (i<estados.size()){
+                if(estados.get(i).getCasos()>estados.get(w).getCasos()){
+                    w=i;
+                }
+
+                i++;
+            }
+
+            return estados.get(w).getNombre();
         }
 
         private void readCovidData() {
@@ -203,13 +252,21 @@ public class MainActivity extends AppCompatActivity {
 
                     //Guardando los datos en un elemento "Paciente"
                     Paciente p = new Paciente();
+                    Estado e = new Estado();
+                    int ex = 0;
+                    boolean posC = false;
+                    boolean posF = false;
+
+                    fecha = campos[0];
 
                     p.setId(campos[1]);
                     p.setEntidad_i(Integer.parseInt(campos[4]));
                     p.setEntidad(EntidadNombre(Integer.parseInt(campos[4])));
+                    e.setNombre(EntidadNombre(Integer.parseInt(campos[4])));
                     p.setSexo(Genero(Integer.parseInt(campos[5])));
                     p.setFecha_ingreso(campos[10]);
                     p.setFecha_defuncion(campos[12]);
+                    p.setDefuncion(ToBoolDate(campos[12]));
                     p.setEdad(Integer.parseInt(campos[15]));
 
                     p.setEmbarazo(ToBool(campos[17]));
@@ -231,7 +288,39 @@ public class MainActivity extends AppCompatActivity {
 
                     pacientes.add(p);
                     x++;
-                    //Log.d("CONTROL", "########## "+p.getId()+" ###########");
+
+                    if(ToBool(campos[30])) {
+                        casos_positivos++;
+                        posC=true;
+                    }
+
+                    if(ToBoolDate(campos[12])) {
+                        fallecimientos++;
+                        Log.d("F", "fallecimiento" + fallecimientos);
+                        posF=true;
+                    }
+
+                    ex = CheckEstado(EntidadNombre(Integer.parseInt(campos[4])));
+                    //existente, actualizar
+                    if(ex != -1){
+                        estados.get(ex).setCasos(estados.get(ex).getCasos()+1);
+                        if(posC){
+                            estados.get(ex).setCasos_positivos(estados.get(ex).getCasos_positivos()+1);
+                        }
+                        if(posF){
+                            estados.get(ex).setFallecimientos(estados.get(ex).getFallecimientos()+1);
+                        }
+                    }
+                    //inexistente, agregar
+                    else {
+                        e.setCasos(1);
+                        if(posC)
+                            e.setCasos_positivos(1);
+                        if(posF)
+                            e.setFallecimientos(1);
+
+                        estados.add(e);
+                    }
                 }
             } catch (IOException e) {
                 Log.wtf("MyActivity","Error al leer el archivo en la linea " + line, e);
@@ -239,6 +328,28 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d("COUNT", "########### "+Integer.toString(x)+" ###########");
             Log.d("DONE", "DONE");
+        }
+
+        private Boolean ToBoolDate(String campo) {
+            if(campo.equals("0")) {
+                //Log.d("fall", "false");
+                return false;
+            }
+            else{
+                //Log.d("fall", "true");
+                return true;
+            }
+        }
+
+        private int CheckEstado(String entidadNombre) {
+            int i=0;
+            while(i < estados.size()){
+                if(entidadNombre.equals(estados.get(i).getNombre())) {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
         }
 
         private boolean ToBool(String campo) {
