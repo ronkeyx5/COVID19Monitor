@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Top bar | Busqueda -->
     <LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="15dp"
-        >
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="15dp">
 
         <TextView
             android:id="@+id/f"
@@ -39,17 +39,22 @@
             android:visibility="gone">
 
             <EditText
-                android:id="@+id/searchDialog"
+                android:id="@+id/searchBox"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="@color/gris"
+                android:hint="        Busqueda (Ej. Estado)"
                 android:textColor="@color/gris"
-                android:hint="        Busqueda (Ej. Estado)" />
+                android:textCursorDrawable="@null"
+                tools:ignore="HardcodedText" />
 
             <ImageButton
-                android:id="@+id/search"
+                android:id="@+id/searchButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/search_icon" />
@@ -59,22 +64,22 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
-            android:background="@android:color/darker_gray"
-            />
+            android:background="@android:color/darker_gray" />
 
     </LinearLayout>
 
+    <!-- Descripcion de la app -->
     <TextView
         android:id="@+id/info"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Aqui podrás visualizar y manipular los datos mas recientes del pais respecto al COVID19\n\n          Escanea los datos para comenzar... "
-        tools:ignore="HardcodedText"
-        android:layout_centerHorizontal="true"
         android:layout_above="@id/escaner"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
-        />
+        android:text="Aqui podrás visualizar y manipular los datos mas recientes del pais respecto al COVID19\n\n          Escanea los datos para comenzar... "
+        tools:ignore="HardcodedText" />
 
+    <!-- Boton para cargar los datos de la DB -->
     <Button
         android:id="@+id/escaner"
         android:layout_width="wrap_content"
@@ -83,10 +88,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:text="Escanear Datos"
+        tools:ignore="HardcodedText"
         tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="501dp"
-        tools:ignore="HardcodedText" />
+        tools:layout_editor_absoluteY="501dp" />
 
+    <!-- Animacion de carga -->
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="100dp"
@@ -95,135 +101,479 @@
         android:progressTint="@color/gris"
         android:visibility="invisible" />
 
-    <LinearLayout
-        android:id="@+id/contentDisplay"
+    <!-- Contenedor Scroll de contenido -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/top"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:visibility="gone"
-        android:layout_marginTop="15dp"
-        >
+        android:layout_below="@id/top">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gráficas por estado"
-            android:layout_gravity="left"
-            android:textSize="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="10dp"
-            />
-
+        <!-- Contenedor de contenido directo -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="15dp"
-            >
+            android:orientation="vertical"
+            android:gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/contentContainer">
 
-            <Button
-                android:id="@+id/button_casos"
+            <!-- Contenido Incial -->
+            <LinearLayout
+                android:id="@+id/contentDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Gráficas por estado"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="15dp">
+
+                    <Button
+                        android:id="@+id/button_casos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Casos"
+                        android:textSize="12dp" />
+
+
+                    <Button
+                        android:id="@+id/button_fallecimientos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fallecimientos"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginRight="70dp"
+                    android:stretchColumns="2">
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_column="1"
+                            android:text="Fecha de la DB:" />
+
+                        <TextView
+                            android:id="@+id/fecha"
+                            android:layout_column="2"
+                            android:layout_marginLeft="10dp"
+                            android:text="x"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_column="1"
+                            android:text="Casos positivos:" />
+
+                        <TextView
+                            android:id="@+id/casos"
+                            android:layout_column="2"
+                            android:layout_marginLeft="10dp"
+                            android:text="x"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_column="1"
+                            android:text="Fallecimientos:" />
+
+                        <TextView
+                            android:id="@+id/fallecimientos"
+                            android:layout_column="2"
+                            android:layout_marginLeft="10dp"
+                            android:text="x"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_column="1"
+                            android:text="Estado con mas casos:" />
+
+                        <TextView
+                            android:id="@+id/estado"
+                            android:layout_column="2"
+                            android:layout_marginLeft="10dp"
+                            android:text="x"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+            <!-- Busquedas -->
+            <LinearLayout
+                android:id="@+id/busquedas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Casos"
-                android:layout_marginRight="10dp"
-                android:textSize="12dp"
-                />
+                android:orientation="vertical"
+                >
+
+                <!-- Clear Button -->
+                <ImageButton
+                    android:id="@+id/busqueda_clearButton"
+                    android:src="@drawable/cancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="330dp"
+                    android:layout_marginBottom="-50dp"
+                    android:visibility="gone"
+                    />
+
+                <!-- Casos | Fallecimientos -->
+                <TextView
+                    android:id="@+id/busqueda_casos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner"
+                    android:text="Casos"
+                    android:elevation="3dp"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/busqueda_fallecimientos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner"
+                    android:elevation="3dp"
+                    android:text="Muertes"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    />
+
+                <!-- Estado | Estados -->
+                <TableLayout
+                    android:id="@+id/busqueda_estado_completo"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner"
+                    android:elevation="3dp"
+                    android:layout_margin="5dp"
+                    android:stretchColumns="2"
+                    android:visibility="gone"
+                    >
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/busqueda_est_nombre"
+                            android:text="Nombre"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:layout_column="1"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView></TextView>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Casos: "
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_est_casos"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Fallecimientos: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_fallecimietos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView></TextView>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Hombres: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_hombres"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Mujeres: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_mujeres"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView></TextView>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Embarazos: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_embarazos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Intubados: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_intubados"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Neumonia: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_neumonia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Epoc: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_epoc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Asma: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_asma"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Inmunosupresion: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_inmunosupresion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Hipertension: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_hipertension"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Cardiovascular: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_cardiovascular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Obesidad: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_obesidad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Renal Cronica: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_renal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Tabaquismo: "
+                            />
+                        <TextView
+                            android:id="@+id/busqueda_est_tabaquismo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:textStyle="bold"
+                            android:text="x"
+                            />
+                    </TableRow>
 
 
-            <Button
-                android:id="@+id/button_fallecimientos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fallecimientos"
-                android:textSize="12dp"
-                />
+                </TableLayout>
+
+                <!-- Padecimientos -->
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="30dp"
-            android:background="@android:color/darker_gray"
-            />
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="70dp"
-            android:layout_marginLeft="70dp"
-            android:stretchColumns="2"
-            >
-
-            <TableRow>
-                <TextView
-                    android:layout_column="1"
-                    android:text="Fecha de la DB:"
-                    />
-
-                <TextView
-                    android:id="@+id/fecha"
-                    android:layout_column="2"
-                    android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
-                    android:text="x"
-                    />
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_column="1"
-                    android:text="Casos positivos:"
-                    />
-
-                <TextView
-                    android:id="@+id/casos"
-                    android:layout_column="2"
-                    android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
-                    android:text="x"
-                    />
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_column="1"
-                    android:text="Fallecimientos:"
-                    />
-
-                <TextView
-                    android:id="@+id/fallecimientos"
-                    android:layout_column="2"
-                    android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
-                    android:text="x"
-                    />
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_column="1"
-                    android:text="Estado con mas casos:"
-                    />
-
-                <TextView
-                    android:id="@+id/estado"
-                    android:layout_column="2"
-                    android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
-                    android:text="x"
-                    />
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
