@@ -48,7 +48,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="@color/gris"
-                android:hint="        Busqueda (Ej. Estado)"
+                android:hint="        Busqueda (Ej. Jalisco)"
                 android:textColor="@color/gris"
                 android:textCursorDrawable="@null"
                 tools:ignore="HardcodedText" />
@@ -170,7 +170,7 @@
                     android:background="@android:color/darker_gray" />
 
                 <TableLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="70dp"
                     android:layout_marginRight="70dp"
@@ -256,7 +256,7 @@
                     android:visibility="gone"
                     />
 
-                <!-- Casos | Fallecimientos -->
+                <!-- Casos | Fallecimientos | Padecimientos -->
                 <TextView
                     android:id="@+id/busqueda_casos"
                     android:layout_width="wrap_content"
@@ -279,10 +279,280 @@
                     android:visibility="gone"
                     />
 
+                <TableLayout
+                    android:id="@+id/busqueda_padecimientos"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner"
+                    android:elevation="3dp"
+                    android:layout_margin="5dp"
+                    android:stretchColumns="2"
+                    android:visibility="gone"
+                    >
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/busqueda_padecimientos_tit"
+                            android:text="Padecimientos"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:layout_column="1"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView></TextView>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Embarazos: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_embarazos"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Intubados: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_intubados"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Neumonia: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_neumonia"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Diabetes: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_diabetes"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Epoc: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_epoc"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Asma: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_asma"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Inmunosupresion: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_inmunosupresion"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Cardiovascular: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_cardiovascular"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Obesidad: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_obesidad"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:ignore="SpUsage" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Renal Cronica: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_renal"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Tabaquismo: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+
+                        <TextView
+                            android:id="@+id/busqueda_p_tabaquismo"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:text="x"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
+                            />
+                    </TableRow>
+
+
+                </TableLayout>
+
                 <!-- Estado | Estados -->
                 <TableLayout
                     android:id="@+id/busqueda_estado_completo"
-                    android:layout_width="200dp"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/corner"
                     android:elevation="3dp"
@@ -298,6 +568,8 @@
                             android:textStyle="bold"
                             android:layout_gravity="center"
                             android:layout_column="1"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                     </TableRow>
                     <TableRow>
@@ -310,6 +582,8 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Casos: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
 
                         <TextView
@@ -319,6 +593,8 @@
                             android:layout_column="2"
                             android:text="x"
                             android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                     </TableRow>
                     <TableRow>
@@ -328,6 +604,8 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Fallecimientos: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                         <TextView
                             android:id="@+id/busqueda_est_fallecimietos"
@@ -335,6 +613,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:textStyle="bold"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:text="x"
                             />
                     </TableRow>
@@ -347,12 +627,16 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_gravity="center"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:text="Hombres: "
                             />
                         <TextView
                             android:id="@+id/busqueda_est_hombres"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
@@ -364,12 +648,16 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_gravity="center"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:text="Mujeres: "
                             />
                         <TextView
                             android:id="@+id/busqueda_est_mujeres"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
@@ -383,6 +671,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_gravity="center"
                             android:text="Embarazos: "
                             />
@@ -390,6 +680,8 @@
                             android:id="@+id/busqueda_est_embarazos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
@@ -401,6 +693,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_gravity="center"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:text="Intubados: "
                             />
                         <TextView
@@ -408,6 +702,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:textStyle="bold"
                             android:text="x"
                             />
@@ -418,6 +714,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_gravity="center"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:text="Neumonia: "
                             />
                         <TextView
@@ -425,6 +723,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:textStyle="bold"
                             android:text="x"
                             />
@@ -435,12 +735,16 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_gravity="center"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:text="Epoc: "
                             />
                         <TextView
                             android:id="@+id/busqueda_est_epoc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
@@ -452,12 +756,16 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_gravity="center"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:text="Asma: "
                             />
                         <TextView
                             android:id="@+id/busqueda_est_asma"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
@@ -470,11 +778,15 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Inmunosupresion: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                         <TextView
                             android:id="@+id/busqueda_est_inmunosupresion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
@@ -487,10 +799,14 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Hipertension: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                         <TextView
                             android:id="@+id/busqueda_est_hipertension"
                             android:layout_width="wrap_content"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:textStyle="bold"
@@ -504,6 +820,8 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Cardiovascular: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                         <TextView
                             android:id="@+id/busqueda_est_cardiovascular"
@@ -512,6 +830,8 @@
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                     </TableRow>
                     <TableRow>
@@ -521,6 +841,8 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Obesidad: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                         <TextView
                             android:id="@+id/busqueda_est_obesidad"
@@ -529,6 +851,8 @@
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                     </TableRow>
                     <TableRow>
@@ -538,6 +862,8 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Renal Cronica: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                         <TextView
                             android:id="@+id/busqueda_est_renal"
@@ -546,6 +872,8 @@
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                     </TableRow>
                     <TableRow>
@@ -555,6 +883,8 @@
                             android:layout_column="1"
                             android:layout_gravity="center"
                             android:text="Tabaquismo: "
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                         <TextView
                             android:id="@+id/busqueda_est_tabaquismo"
@@ -563,6 +893,8 @@
                             android:layout_column="1"
                             android:textStyle="bold"
                             android:text="x"
+                            android:textSize="20dp"
+                            tools:ignore="SpUsage"
                             />
                     </TableRow>
 

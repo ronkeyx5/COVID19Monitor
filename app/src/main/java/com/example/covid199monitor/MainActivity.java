@@ -1,52 +1,32 @@
 package com.example.covid199monitor;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.method.KeyListener;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.nio.channels.AsynchronousFileChannel;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.zip.GZIPOutputStream;
 
-import com.anychart.core.annotations.Line;
-import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
+//org.apache.commons.lang.StringUtils.
 
 public class MainActivity extends AppCompatActivity {
 
@@ -174,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
     int fallecimientos = 0;
     public List<Estado> estados = new ArrayList<>();
     List<Integer> edadProm = new ArrayList<>();
+    List<Padecimiento> padecimientos = new ArrayList<>();
 
     class DataReadAsync extends AsyncTask {
 
@@ -244,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
             );
 
             String line = "";
+            Padecimientos();
 
             try {
                 reader.readLine();
@@ -260,6 +242,10 @@ public class MainActivity extends AppCompatActivity {
                     boolean posC = false;
                     boolean posF = false;
 
+                    boolean auxP = false;
+
+                    int aux_i[] = {0,0,0,0,0,0,0,0,0,0,0,0};
+
                     fecha = campos[0];
 
                     p.setId(campos[1]);
@@ -272,18 +258,19 @@ public class MainActivity extends AppCompatActivity {
                     p.setDefuncion(ToBoolDate(campos[12]));
                     p.setEdad(Integer.parseInt(campos[15]));
 
-                    p.setEmbarazo(ToBool(campos[17]));
-                    p.setIntubado(ToBool(campos[13]));
-                    p.setNeumonia(ToBool(campos[14]));
-                    p.setDiabetes(ToBool(campos[19]));
-                    p.setEpoc(ToBool(campos[20]));
-                    p.setAsma(ToBool(campos[21]));
-                    p.setInmunosupresion(ToBool(campos[22]));
-                    p.setHipertension(ToBool(campos[23]));
-                    p.setCardiovascular(ToBool(campos[25]));
-                    p.setObesidad(ToBool(campos[26]));
-                    p.setRenal_cronica(ToBool(campos[27]));
-                    p.setTabaquismo(ToBool(campos[28]));
+                    //String[] padecimientos_s = {"intubado", "embarazo", "neumonia", "diabetes", "epoc", "asma", "inmunosupresion", "hipertension", "cardiovascular", "obesidad", "renal", "tabaquismo"};
+                    p.setIntubado(auxP=ToBool(campos[13])); if(auxP) aux_i[0] = 1;
+                    p.setEmbarazo(auxP=ToBool(campos[17])); if(auxP) aux_i[1] = 1;
+                    p.setNeumonia(auxP=ToBool(campos[14])); if(auxP) aux_i[2] = 1;
+                    p.setDiabetes(auxP=ToBool(campos[19])); if(auxP) aux_i[3] = 1;
+                    p.setEpoc(auxP=ToBool(campos[20])); if(auxP) aux_i[4] = 1;
+                    p.setAsma(auxP=ToBool(campos[21])); if(auxP) aux_i[5] = 1;
+                    p.setInmunosupresion(auxP=ToBool(campos[22])); if(auxP) aux_i[6] = 1;
+                    p.setHipertension(auxP=ToBool(campos[23])); if(auxP) aux_i[7] = 1;
+                    p.setCardiovascular(auxP=ToBool(campos[25])); if(auxP) aux_i[8] = 1;
+                    p.setObesidad(auxP=ToBool(campos[26])); if(auxP) aux_i[9] = 1;
+                    p.setRenal_cronica(auxP=ToBool(campos[27])); if(auxP) aux_i[10] = 1;
+                    p.setTabaquismo(auxP=ToBool(campos[28])); if(auxP) aux_i[11] = 1;
 
                     p.setResultado(ToBool(campos[30]));
 
@@ -328,42 +315,16 @@ public class MainActivity extends AppCompatActivity {
                     //Edad
                     edadProm.add(p.getEdad());
 
-                    /*
-                    //Genero
-                    if(p.getSexo()=='M') {
-                        estados.get(p.getEntidad_i()).setHombres(estados.get(p.getEntidad_i()).getHombres()+1);
-
-                    }
-                    else {
-                        estados.get(p.getEntidad_i()).setMujeres(estados.get(p.getEntidad_i()).getMujeres()+1);
-                    }
-
                     //Padecimientos
-                    if(p.isEmbarazo())
-                        estados.get(p.getEntidad_i()).setEmbarazo(estados.get(p.getEntidad_i()).getEmbarazo()+1);
-                    if(p.isIntubado())
-                        estados.get(p.getEntidad_i()).setIntubado(estados.get(p.getEntidad_i()).getIntubado()+1);
-                    if(p.isNeumonia())
-                        estados.get(p.getEntidad_i()).setNeumonia(estados.get(p.getEntidad_i()).getNeumonia()+1);
-                    if(p.isDiabetes())
-                        estados.get(p.getEntidad_i()).setDiabetes(estados.get(p.getEntidad_i()).getDiabetes()+1);
-                    if(p.isEpoc())
-                        estados.get(p.getEntidad_i()).setEpoc(estados.get(p.getEntidad_i()).getEpoc()+1);
-                    if(p.isAsma())
-                        estados.get(p.getEntidad_i()).setAsma(estados.get(p.getEntidad_i()).getAsma()+1);
-                    if(p.isInmunosupresion())
-                        estados.get(p.getEntidad_i()).setInmunosupresion(estados.get(p.getEntidad_i()).getInmunosupresion()+1);
-                    if(p.isHipertension())
-                        estados.get(p.getEntidad_i()).setHipertension(estados.get(p.getEntidad_i()).getHipertension()+1);
-                    if(p.isCardiovascular())
-                        estados.get(p.getEntidad_i()).setCardiovascular(estados.get(p.getEntidad_i()).getCardiovascular()+1);
-                    if(p.isObesidad())
-                        estados.get(p.getEntidad_i()).setObesidad(estados.get(p.getEntidad_i()).getObesidad()+1);
-                    if(p.isRenal_cronica())
-                        estados.get(p.getEntidad_i()).setRenal_cronica(estados.get(p.getEntidad_i()).getRenal_cronica()+1);
-                    if(p.isTabaquismo())
-                        estados.get(p.getEntidad_i()).setTabaquismo(estados.get(p.getEntidad_i()).getTabaquismo()+1);
-                        */
+                    for(int x=0; x<12; x++) {
+                        if(posC)    {
+                            padecimientos.get(x).setCasos_t(padecimientos.get(x).getCasos_t()+aux_i[x]);
+                            padecimientos.get(x).setCasos_p(padecimientos.get(x).getCasos_p()+aux_i[x]);
+                        }
+                        else    {
+                            padecimientos.get(x).setCasos_t(padecimientos.get(x).getCasos_t()+aux_i[x]);
+                        }
+                    }
                 }
             } catch (IOException e) {
                 Log.wtf("MyActivity","Error al leer el archivo en la linea " + line, e);
@@ -373,6 +334,19 @@ public class MainActivity extends AppCompatActivity {
             Log.d("DONE", "DONE");
 
             DatosPorEstado();
+        }
+
+        private void Padecimientos() {
+            String[] padecimientos_s = {"intubado", "embarazo", "neumonia", "diabetes", "epoc", "asma", "inmunosupresion", "hipertension", "cardiovascular", "obesidad", "renal", "tabaquismo"};
+            for(int i=0; i<12; i++) {
+                Padecimiento ex = new Padecimiento();
+
+                ex.setNombre(padecimientos_s[i]);
+                ex.setCasos_p(0);
+                ex.setCasos_t(0);
+
+                padecimientos.add(ex);
+            }
         }
 
         private void DatosPorEstado() {
@@ -468,8 +442,8 @@ public class MainActivity extends AppCompatActivity {
     //------------------------------------------------------
     //BUSQUEDA
 
+    @SuppressLint("SetTextI18n")
     private void Busqueda() {
-        //TODO
         //Invisible cada uno
         TextView b_casos = findViewById(R.id.busqueda_casos);
         TextView b_fallecimientos = findViewById(R.id.busqueda_fallecimientos);
@@ -477,11 +451,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.busqueda_estado_completo).setVisibility(View.GONE);
         clearButton.setVisibility(View.GONE);
         b_casos.setVisibility(View.GONE); b_fallecimientos.setVisibility(View.GONE); content_display.setVisibility(View.GONE);
+        findViewById(R.id.busqueda_padecimientos).setVisibility(View.GONE);
 
         clearButton.setVisibility(View.VISIBLE);
 
         String busqueda = busquedaBox.getText().toString();
-        String[] padecimientos = {"intubado", "embarazo", "neumonia", "diabetes", "epoc", "asma", "inmunosupresion", "hipertension", "cardiovascular", "obesidad", "renal", "tabaquismo"};
+        String[] padecimientos_s = {"intubado", "embarazo", "neumonia", "diabetes", "epoc", "asma", "inmunosupresion", "hipertension", "cardiovascular", "obesidad", "renal", "tabaquismo"};
 
         List<Paciente> resultados = new ArrayList<>();
 
@@ -501,7 +476,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Estados
         for(int i=0; i<estados.size(); i++) {
-            if(busqueda.equalsIgnoreCase(estados.get(i).getNombre())) {
+            //if(busqueda.equalsIgnoreCase(estados.get(i).getNombre())) {
+            if(estados.get(i).getNombre().equalsIgnoreCase(busqueda) || estados.get(i).getNombre().toLowerCase().contains(busqueda))  {
                 Log.d("busqueda", estados.get(i).getNombre() + " || " + busqueda);
 
                 //Tabla de estado
@@ -529,23 +505,32 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //Todos los estados
-        if(busqueda.equalsIgnoreCase("estados"))  {
-
-            return;
-        }
-
+        int aux = 0;
         //Padecimientos
+        /*
         for(int i=0; i<padecimientos.length; i++)   {
             if(busqueda.equalsIgnoreCase(padecimientos[i]) || busqueda.contains(padecimientos[i]))    {
                 //Resultados de padecimiento
-
                 return;
             }
-        }
+        }*/
 
         //Todos los padecimientos
-        if(busqueda.equalsIgnoreCase("padecimientos"))    {
+        if(busqueda.equalsIgnoreCase("padecimientos") || "padecimientos".toLowerCase().contains(busqueda))    {
+            findViewById(R.id.busqueda_padecimientos).setVisibility(View.VISIBLE);
+            TextView a,b,c,d,e,f,g,h,j,k,l;
+
+            a=findViewById(R.id.busqueda_p_embarazos); b=findViewById(R.id.busqueda_p_intubados); c=findViewById(R.id.busqueda_p_neumonia);
+            d=findViewById(R.id.busqueda_p_diabetes); e=findViewById(R.id.busqueda_p_epoc); f=findViewById(R.id.busqueda_p_asma);
+            g=findViewById(R.id.busqueda_p_inmunosupresion); h=findViewById(R.id.busqueda_p_cardiovascular); j=findViewById(R.id.busqueda_p_obesidad);
+            k=findViewById(R.id.busqueda_p_renal); l=findViewById(R.id.busqueda_p_tabaquismo);
+
+            //String[] padecimientos = {"intubado", "embarazo", "neumonia", "diabetes", "epoc", "asma", "inmunosupresion", "hipertension", "cardiovascular", "obesidad", "renal", "tabaquismo"};
+            a.setText(Integer.toString(padecimientos.get(1).getCasos_p())); b.setText(Integer.toString(padecimientos.get(0).getCasos_p()));
+            c.setText(Integer.toString(padecimientos.get(2).getCasos_p())); d.setText(Integer.toString(padecimientos.get(3).getCasos_p()));
+            e.setText(Integer.toString(padecimientos.get(4).getCasos_p())); f.setText(Integer.toString(padecimientos.get(5).getCasos_p())); g.setText(Integer.toString(padecimientos.get(6).getCasos_p()));
+            h.setText(Integer.toString(padecimientos.get(7).getCasos_p())); j.setText(Integer.toString(padecimientos.get(8).getCasos_p())); k.setText(Integer.toString(padecimientos.get(9).getCasos_p()));
+            l.setText(Integer.toString(padecimientos.get(10).getCasos_p()));
 
             return;
         }
