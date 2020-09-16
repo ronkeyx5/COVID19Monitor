@@ -75,8 +75,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/escaner"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:text="Aqui podrás visualizar y manipular los datos mas recientes del pais respecto al COVID19\n\n          Escanea los datos para comenzar... "
+        android:layout_marginBottom="100dp"
+        android:gravity="center"
+        android:text="Aqui podrás visualizar y manipular los datos mas recientes del pais respecto al COVID19\n\nPuedes descargar los datos mas nuevos o escanear los existentes\n\n(Si el la primera vez que la usa debe de descargarlos)"
         tools:ignore="HardcodedText" />
 
     <!-- Boton para cargar los datos de la DB -->
@@ -92,14 +93,40 @@
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="501dp" />
 
+    <TextView
+        android:id="@+id/fecha_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha: "
+        android:layout_below="@id/escaner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-30dp"
+        android:visibility="gone"
+        />
+
+    <!-- Boton para descargar los datos de la DB -->
+    <Button
+        android:id="@+id/descargarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="120dp"
+        android:text="Descargar Datos"
+        tools:ignore="HardcodedText"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="501dp" />
+
     <!-- Animacion de carga -->
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="100dp"
+        android:layout_centerHorizontal="true"
         android:layout_height="100dp"
-        android:layout_centerInParent="true"
         android:progressTint="@color/gris"
-        android:visibility="invisible" />
+        android:layout_above="@id/info"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone" />
 
     <!-- Contenedor Scroll de contenido -->
     <ScrollView
