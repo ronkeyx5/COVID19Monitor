@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
         if (file.exists()) {
             //Leer
 
-            /*
             File fileEx = new File(Environment.getExternalStorageDirectory().toString() + "/COVID19Monitor/", "covid.csv");
 
             //Buffer para poder manipular los datos dentro del archivo
@@ -173,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-             */
         } else {
             findViewById(R.id.escaner).setEnabled(false);
         }
